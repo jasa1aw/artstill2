@@ -20,7 +20,7 @@ export type LayoutDictionary = {
     navTitle: string;
     nav: NavItem[];
     contactTitle: string;
-    /** Всегда "Language" — так в исходнике на всех 3 локалях. */
+    /** Всегда "Language"- так в исходнике на всех 3 локалях. */
     languageTitle: string;
     legalPrivacy: string;
     credit: string;

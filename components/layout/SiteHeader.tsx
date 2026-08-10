@@ -7,7 +7,7 @@ import { BRAND_NAME, BRAND_TAGLINE } from "@/lib/site";
 
 /**
  * Прозрачная шапка главной страницы (`position: absolute` поверх hero).
- * Разметка перенесена 1:1 из index.html/kk.html/en.html — порядок и
+ * Разметка перенесена 1:1 из index.html/kk.html/en.html- порядок и
  * количество узлов важны для CSS (`.main-nav a:after`, `:hover` и т.д.).
  */
 export function SiteHeader({ locale }: { locale: Locale }) {

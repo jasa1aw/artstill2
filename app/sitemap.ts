@@ -4,7 +4,7 @@ import { SITE_URL } from "@/lib/site";
 
 /**
  * Каталог, проекты и "о компании" пока не перенесены (см.
- * MIGRATION-NEXTJS16-TAILWIND.md) — здесь только реально существующие
+ * MIGRATION-NEXTJS16-TAILWIND.md)- здесь только реально существующие
  * маршруты. Обновить список при добавлении новых страниц.
  */
 const paths = ["", "/estimate", "/privacy"];

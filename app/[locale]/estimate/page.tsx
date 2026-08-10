@@ -23,7 +23,7 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {};
 
   const page = estimateDictionary[locale].meta;
-  // og/twitter намеренно берутся из общесайтовых meta, а не со страницы —
+  // og/twitter намеренно берутся из общесайтовых meta, а не со страницы-
   // так было и в оригинале (см. MIGRATION-NEXTJS16-TAILWIND.md, находка Шага 4).
   const site = siteMeta[locale];
   const url = `${SITE_URL}/${locale}/${PAGE_PATH}`;

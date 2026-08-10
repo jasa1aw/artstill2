@@ -3,15 +3,15 @@ import Link from "next/link";
 import "./globals.css";
 
 /**
- * global-not-found.js обязателен для этой архитектуры: root layout —
+ * global-not-found.js обязателен для этой архитектуры: root layout-
  * app/[locale]/layout.tsx (динамический сегмент), поэтому у страницы
  * ошибки нет доступа к params и она не может знать локаль запроса.
- * Текста для 404 не было в исходном дампе (crawler его не поймал) —
+ * Текста для 404 не было в исходном дампе (crawler его не поймал)-
  * копия написана заново на русском (локаль по умолчанию), в стиле
- * остального сайта. Стили — из .not-found-page/.not-found-* в globals.css.
+ * остального сайта. Стили- из .not-found-page/.not-found-* в globals.css.
  */
 export const metadata: Metadata = {
-  title: "Страница не найдена — Art Stil",
+  title: "Страница не найдена- Art Stil",
   description: "Запрошенная страница не найдена или была перемещена.",
   robots: { index: false, follow: false },
 };
@@ -26,7 +26,7 @@ export default function GlobalNotFound() {
             <h1>Страница не найдена</h1>
             <p>
               Возможно, ссылка устарела или страница была перемещена.
-              Вернитесь на главную или оставьте заявку — мы поможем найти
+              Вернитесь на главную или оставьте заявку- мы поможем найти
               нужный раздел.
             </p>
             <div className="not-found-actions">

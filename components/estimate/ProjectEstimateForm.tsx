@@ -9,10 +9,10 @@ function fieldValue(data: FormData, key: string): string {
 }
 
 /**
- * Форма ничего не отправляет на сервер — собирает текст сообщения и
+ * Форма ничего не отправляет на сервер- собирает текст сообщения и
  * открывает wa.me с готовым текстом (ровно как в оригинале, см.
  * MIGRATION-NEXTJS16-TAILWIND.md §10). noValidate + ручной
- * form.reportValidity() — намеренная комбинация, не native-тултипы.
+ * form.reportValidity()- намеренная комбинация, не native-тултипы.
  */
 export function ProjectEstimateForm({
   privacyHref,

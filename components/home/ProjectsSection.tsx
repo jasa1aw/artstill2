@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import type { Locale } from "@/lib/i18n";
 import { homeDictionary } from "@/lib/dictionaries/home";
@@ -15,16 +14,12 @@ export function ProjectsSection({ locale }: { locale: Locale }) {
         </div>
         <div>
           <p>{t.lead}</p>
-          <Link href={`/${locale}/projects`}>
-            {t.link}
-            <span aria-hidden="true">↗</span>
-          </Link>
         </div>
       </div>
       <div className="sales-projects-grid">
         {t.cards.map((card) => (
           <article key={card.number}>
-            <Link className="sales-project-image" href={card.href}>
+            <div className="sales-project-image">
               <Image
                 src={card.image}
                 alt={card.alt}
@@ -34,14 +29,10 @@ export function ProjectsSection({ locale }: { locale: Locale }) {
               />
               <span></span>
               <strong>{card.number}</strong>
-            </Link>
+            </div>
             <div>
               <small>{card.category}</small>
               <h3>{card.title}</h3>
-              <Link href={card.href}>
-                {card.cta}
-                <span aria-hidden="true">↗</span>
-              </Link>
             </div>
           </article>
         ))}

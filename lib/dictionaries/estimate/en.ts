@@ -2,7 +2,7 @@ import type { EstimateDictionary } from "./types";
 
 export const estimateEn: EstimateDictionary = {
   meta: {
-    title: "Tell us about your project — Art Stil",
+    title: "Tell us about your project- Art Stil",
     description:
       "Complete the short brief. WhatsApp will then open with a structured message ready for the Art Stil manager.",
   },

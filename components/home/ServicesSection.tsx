@@ -3,7 +3,7 @@ import { homeDictionary } from "@/lib/dictionaries/home";
 
 /**
  * Фото карточек задаются в globals.css через
- * `.services-visual-section article:nth-child(n):before` — в разметке
+ * `.services-visual-section article:nth-child(n):before`- в разметке
  * их нет, поэтому порядок и количество карточек (ровно 3) менять нельзя.
  */
 export function ServicesSection({ locale }: { locale: Locale }) {

@@ -1,8 +1,8 @@
 /**
- * Тексты общих layout-компонентов — казахская локаль.
+ * Тексты общих layout-компонентов- казахская локаль.
  * Извлечено дословно из дампа kk.html / kk/*.html.
  * Внимание: "Навигация" и aria-label шапки в оригинале НЕ переведены
- * на казахский (сохранено намеренно — так в исходнике).
+ * на казахский (сохранено намеренно- так в исходнике).
  */
 import type { LayoutDictionary } from "./types";
 
@@ -12,20 +12,13 @@ export const layoutKk: LayoutDictionary = {
     langSwitcherAria: "Тілді таңдау",
     nav: [
       { label: "Қызметтер", href: "#services" },
-      { label: "Каталог", href: "/kk/catalog" },
-      { label: "Жобалар", href: "/kk/projects" },
       { label: "Өндіріс", href: "#production" },
-      { label: "Компания туралы", href: "/kk/about" },
       { label: "Байланыс", href: "#contacts" },
     ],
   },
   internalHeader: {
     home: { label: "Басты бет", href: "/kk" },
-    nav: [
-      { key: "catalog", label: "Каталог", href: "/kk/catalog" },
-      { key: "projects", label: "Жобалар", href: "/kk/projects" },
-      { key: "about", label: "Компания туралы", href: "/kk/about" },
-    ],
+    nav: [],
     estimate: { key: "estimate", label: "Есептеу", href: "/kk/estimate" },
     mobileContacts: { label: "Байланыс", href: "/kk#contacts" },
   },
@@ -34,16 +27,13 @@ export const layoutKk: LayoutDictionary = {
       "Шыныталшықты бетоннан сәулеттік декор: жобалау, өндіру, жеткізу және монтаж.",
     navTitle: "Навигация",
     nav: [
-      { label: "Каталог", href: "/kk/catalog" },
-      { label: "Жобалар", href: "/kk/projects" },
       { label: "Өндіріс", href: "/kk#production" },
-      { label: "Компания туралы", href: "/kk/about" },
       { label: "Байланыс", href: "/kk#contacts" },
     ],
     contactTitle: "Байланыс",
     languageTitle: "Language",
     legalPrivacy: "Құпиялық саясаты",
-    credit: "Сайтты әзірлеген — Nazia 8 Promo",
+    credit: "Сайтты әзірлеген- Nazia 8 Promo",
     rightsReserved: "Барлық құқықтар қорғалған.",
   },
   contact: {
@@ -55,7 +45,7 @@ export const layoutKk: LayoutDictionary = {
     areaLabel: "Жұмыс географиясы",
     areaValue: "Алматы және бүкіл Қазақстан",
     hoursLabel: "Кеңес беру уақыты",
-    hoursValue: "Дүйсенбі — сенбі",
+    hoursValue: "Дүйсенбі- сенбі",
     instagramLabel: "Instagram",
   },
   whatsappAria: "Art Stil компаниясына WhatsApp арқылы жазу",

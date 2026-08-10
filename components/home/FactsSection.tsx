@@ -1,5 +1,6 @@
 import type { Locale } from "@/lib/i18n";
 import { homeDictionary } from "@/lib/dictionaries/home";
+import { AnimatedStat } from "./AnimatedStat";
 
 export function FactsSection({ locale }: { locale: Locale }) {
   const facts = homeDictionary[locale].facts;
@@ -8,7 +9,7 @@ export function FactsSection({ locale }: { locale: Locale }) {
     <section className="sales-facts-section">
       {facts.map((fact) => (
         <article key={fact.label}>
-          <strong>{fact.value}</strong>
+          <AnimatedStat value={fact.value} />
           <span>{fact.label}</span>
         </article>
       ))}

@@ -2,7 +2,7 @@ import type { PrivacyDictionary } from "./types";
 
 export const privacyRu: PrivacyDictionary = {
   meta: {
-    title: "Политика конфиденциальности — Art Stil",
+    title: "Политика конфиденциальности- Art Stil",
     description:
       "Настоящая политика объясняет, какие данные могут быть получены через сайт Art Stil и как они используются.",
   },

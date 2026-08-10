@@ -4,8 +4,8 @@ import { WHATSAPP_HREF } from "@/lib/site";
 
 /**
  * position: fixed кнопка. Цвет (#25d366) задаётся в globals.css через
- * селектор `a[aria-label*=WhatsApp]` — важно, чтобы aria-label на всех
- * локалях содержал подстроку "WhatsApp" (проверено: ru/kk/en — содержат).
+ * селектор `a[aria-label*=WhatsApp]`- важно, чтобы aria-label на всех
+ * локалях содержал подстроку "WhatsApp" (проверено: ru/kk/en- содержат).
  */
 export function FloatingWhatsapp({ locale }: { locale: Locale }) {
   const t = layoutDictionary[locale];

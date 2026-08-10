@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     qualities: [75],
   },
   experimental: {
-    // Root layout здесь — app/[locale]/layout.tsx (динамический сегмент),
+    // Root layout здесь- app/[locale]/layout.tsx (динамический сегмент),
     // поэтому обычный app/not-found.tsx не может отрендерить <html>/<body>
     // для по-настоящему несматченных путей. См. node_modules/next/dist/docs/
     // .../file-conventions/not-found.md, раздел про global-not-found.js.

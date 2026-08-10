@@ -1,4 +1,4 @@
-# Перенос artstil.kz на Next.js 16 + Tailwind CSS — пошаговый цикл 1:1
+# Перенос artstil.kz на Next.js 16 + Tailwind CSS- пошаговый цикл 1:1
 
 > Документ описывает полный цикл переноса статического дампа сайта
 > (`C:\Рабочий стол\artstil.kz`) на актуальный стек **Next.js 16 (App Router) + Tailwind CSS v4**
@@ -9,27 +9,27 @@
 
 ## 0. Результаты аудита исходника (прочитать до начала работы)
 
-Это **не обычный HTML-сайт**. Дамп — это отрендеренный вывод уже существующего
+Это **не обычный HTML-сайт**. Дамп- это отрендеренный вывод уже существующего
 Next.js App Router проекта. Это радикально упрощает перенос.
 
 | Что | Факт из дампа |
 |---|---|
 | Фреймворк оригинала | Next.js App Router + Turbopack (`_next/static/chunks/turbopack-*.js`) |
-| CSS-движок | Tailwind CSS **v4** — в бандле есть `@layer theme` / `@layer base` с переменными `--font-sans`, `--default-font-family` (это preflight Tailwind v4) |
-| Реальная стилизация | **99% — обычный семантический CSS** с классами `.site-header`, `.hero`, `.sales-object-card`. Утилит-классов Tailwind в разметке **нет ни одного** |
-| Шрифты | Только системные: `Georgia, "Times New Roman", serif` для заголовков, `Arial, Helvetica, sans-serif` для текста. **Веб-шрифтов нет** — `next/font` не нужен |
-| Анимации | `@keyframes` — **0 штук**. Только CSS `transition` (список в §11) |
-| Клиентский JS | Одна интерактивная форма (`ProjectEstimateForm`) + `<details>` для мобильного меню. Остальное — Server Components |
+| CSS-движок | Tailwind CSS **v4**- в бандле есть `@layer theme` / `@layer base` с переменными `--font-sans`, `--default-font-family` (это preflight Tailwind v4) |
+| Реальная стилизация | **99%- обычный семантический CSS** с классами `.site-header`, `.hero`, `.sales-object-card`. Утилит-классов Tailwind в разметке **нет ни одного** |
+| Шрифты | Только системные: `Georgia, "Times New Roman", serif` для заголовков, `Arial, Helvetica, sans-serif` для текста. **Веб-шрифтов нет**- `next/font` не нужен |
+| Анимации | `@keyframes`- **0 штук**. Только CSS `transition` (список в §11) |
+| Клиентский JS | Одна интерактивная форма (`ProjectEstimateForm`) + `<details>` для мобильного меню. Остальное- Server Components |
 | Локали | 3: `ru` (дефолт), `kk`, `en` |
 | Изображения | `next/image` (`fill` + `sizes`) для контента, CSS `background-image` для декоративных подложек |
-| Данные/бэкенд | Отсутствуют. Форма не отправляется на сервер — открывает `wa.me` deep link |
+| Данные/бэкенд | Отсутствуют. Форма не отправляется на сервер- открывает `wa.me` deep link |
 
 ### Ключевой вывод
 
 **Не пытайтесь переписывать CSS в утилиты Tailwind.** Стилевой бандл содержит
 ~1200 правил с `!important` и наслоением четырёх «патч-слоёв» друг на друга
 (§2.2). Любая попытка «почистить» или «переписать в Tailwind» гарантированно
-сломает пиксельность. Стратегия 1:1 — **перенести CSS байт-в-байт в
+сломает пиксельность. Стратегия 1:1- **перенести CSS байт-в-байт в
 `globals.css`, сохранив порядок**, а Tailwind использовать ровно так же, как в
 оригинале: только ради preflight и как опция для будущих доработок.
 
@@ -52,11 +52,11 @@ Next.js App Router проекта. Это радикально упрощает 
 | `ru/about.html` + `kk/`, `en/` | `/[locale]/about` | `app/[locale]/about/page.tsx` |
 | `ru/estimate.html` + `kk/`, `en/` | `/[locale]/estimate` | `app/[locale]/estimate/page.tsx` |
 | `ru/privacy.html` + `kk/`, `en/` | `/[locale]/privacy` | `app/[locale]/privacy/page.tsx` |
-| — (стили `.not-found-page` есть в CSS) | 404 | `app/not-found.tsx` |
+|- (стили `.not-found-page` есть в CSS) | 404 | `app/not-found.tsx` |
 | `/` | редирект → `/ru` | `app/page.tsx` (redirect) |
 | `manifest.webmanifest` | `/manifest.webmanifest` | `app/manifest.ts` |
 | `robots.txt` | `/robots.txt` | `app/robots.ts` |
-| — (упомянут в robots) | `/sitemap.xml` | `app/sitemap.ts` |
+|- (упомянут в robots) | `/sitemap.xml` | `app/sitemap.ts` |
 
 Итого: **8 файлов страниц** покрывают все 27 HTML-файлов дампа.
 
@@ -83,8 +83,8 @@ Next.js App Router проекта. Это радикально упрощает 
 
 > **Ловушка №1.** Последний слой CSS содержит селектор
 > `.home-page > section:first-of-type`, который задаёт фоновую фотографию hero.
-> Если между `<header>` и hero вставить любой другой `<section>` — фон главной
-> страницы отвалится. `<header>` — это `header`, не `section`, поэтому порядок работает.
+> Если между `<header>` и hero вставить любой другой `<section>`- фон главной
+> страницы отвалится. `<header>`- это `header`, не `section`, поэтому порядок работает.
 
 ### 1.3 Секции внутренних страниц
 
@@ -107,7 +107,7 @@ Next.js App Router проекта. Это радикально упрощает 
 ### 2.1 CSS-переменные (4 набора, все обязательны)
 
 ```css
-/* Базовый набор — используется большинством компонентов */
+/* Базовый набор- используется большинством компонентов */
 :root {
   --background: #f2efe8;
   --surface:    #faf8f3;
@@ -121,7 +121,7 @@ Next.js App Router проекта. Это радикально упрощает 
   --white:      #fff;
 }
 
-/* Слой «premium» — перекрашивает секции продаж */
+/* Слой «premium»- перекрашивает секции продаж */
 :root {
   --premium-ivory:        #f4f0e8;
   --premium-stone:        #e9e1d4;
@@ -135,7 +135,7 @@ Next.js App Router проекта. Это радикально упрощает 
   --premium-line:         #18202721;
 }
 
-/* Слой «polish» — финальная полировка */
+/* Слой «polish»- финальная полировка */
 :root {
   --polish-ink:          #121a20;
   --polish-navy:         #14232d;
@@ -150,14 +150,14 @@ Next.js App Router проекта. Это радикально упрощает 
 
 Плюс Tailwind v4 `@layer theme` c `--font-sans` / `--font-mono` (приходит из `@import "tailwindcss"`).
 
-### 2.2 Порядок слоёв CSS — САМОЕ ВАЖНОЕ
+### 2.2 Порядок слоёв CSS- САМОЕ ВАЖНОЕ
 
-Бандл `1g2snlkp6isx6.css` — это конкатенация в строго этом порядке. Слои
+Бандл `1g2snlkp6isx6.css`- это конкатенация в строго этом порядке. Слои
 переопределяют друг друга через `!important`, поэтому **менять порядок нельзя**:
 
 | # | Диапазон | Содержимое |
 |---|---|---|
-| 1 | нач. | `.hero-sales-*`, `.sales-*` — базовые стили продающих секций |
+| 1 | нач. | `.hero-sales-*`, `.sales-*`- базовые стили продающих секций |
 | 2 | | `:root{--premium-*}` + `!important`-перекраска секций в «премиум»-палитру |
 | 3 | | `:root{--polish-*}` + hover-эффекты, градиенты, тени, фон hero |
 | 4 | | Tailwind v4 `@layer theme` + `@layer base` (preflight) |
@@ -183,7 +183,7 @@ Next.js App Router проекта. Это радикально упрощает 
 | Тело абзацев | 13–18px, `line-height: 1.7–1.85`, цвет `var(--muted)` |
 | Кнопка `.button` | `12px/700`, `uppercase`, `letter-spacing: 1px`, `min-height: 56px`, `padding: 0 27px` |
 
-> `font-weight: 400` на заголовках — обязательно. Tailwind preflight сбрасывает
+> `font-weight: 400` на заголовках- обязательно. Tailwind preflight сбрасывает
 > `font-weight` у h1–h6 в `inherit`, а `<strong>`/`<b>` получают `bolder`.
 
 ### 2.4 Сетка-контейнер
@@ -198,7 +198,7 @@ padding: 115px max(24px, 50vw - 690px);   /* контейнер 1380px, цент
 
 ---
 
-## 3. Шаг 1 — создание проекта
+## 3. Шаг 1- создание проекта
 
 ```bash
 npx create-next-app@latest artstil-next --typescript --app --tailwind --eslint --src-dir=false --import-alias "@/*"
@@ -267,7 +267,7 @@ public/
 
 ---
 
-## 4. Шаг 2 — перенос CSS (критический шаг)
+## 4. Шаг 2- перенос CSS (критический шаг)
 
 ### 4.1 Извлечь оригинальный CSS без потерь
 
@@ -292,7 +292,7 @@ node -e "const fs=require('fs');const s=fs.readFileSync('_next/static/chunks/1g2
 /* ===== СЛОЙ 3: polish ===== */
 /* ... */
 
-/* СЛОЙ 4 (Tailwind preflight) уже подключён через @import выше —
+/* СЛОЙ 4 (Tailwind preflight) уже подключён через @import выше-
    его отдельно копировать НЕ нужно */
 
 /* ===== СЛОЙ 5: основной globals ===== */
@@ -325,20 +325,20 @@ CSS ссылается на:
                         balustrade,balustrade-v2,custom-facade,custom-elements-v2}.jpg
 ```
 
-Все эти файлы **уже есть** в дампе в папке `images/` — просто скопируйте её в
+Все эти файлы **уже есть** в дампе в папке `images/`- просто скопируйте её в
 `public/images/`. Пути в CSS менять не нужно.
 
-### 4.4 Убрать `!important`-костыли? — Нет
+### 4.4 Убрать `!important`-костыли?- Нет
 
 Файл содержит правила вроде `.hero-sales-promise span { display: none !important }`
 и `.home-page > section:first-of-type > :last-child { display: none !important }`.
 Второе **скрывает `.hero-scroll-line`** («ARTSTIL · ALMATY» с чёрточкой) на главной.
-Это не баг вёрстки, а осознанный результат последнего слоя — при переносе 1:1
+Это не баг вёрстки, а осознанный результат последнего слоя- при переносе 1:1
 разметку `.hero-scroll-line` нужно оставить в HTML, но она будет невидима.
 
 ---
 
-## 5. Шаг 3 — ассеты
+## 5. Шаг 3- ассеты
 
 ### 5.1 Прямое копирование
 
@@ -366,7 +366,7 @@ cp "favicon.ico%3Ffavicon.2vob68tjqpejf.ico"          "artstil-next/public/favic
                   texture-smooth-facade-v2,texture-travertine-v2}.webp
 ```
 
-**Вариант A (предпочтительный).** Скачать оригиналы с живого сайта —
+**Вариант A (предпочтительный).** Скачать оригиналы с живого сайта-
 пути известны точно:
 
 ```bash
@@ -416,13 +416,13 @@ Get-ChildItem $src -File | Where-Object { $_.Name -like 'image%3Furl=*' } |
 
 ### 5.3 Логотип
 
-`.brand-mark.brand-mark-image` — круглый контейнер 58×58 (мобилка 48×48) с
+`.brand-mark.brand-mark-image`- круглый контейнер 58×58 (мобилка 48×48) с
 `object-fit: cover` и `box-shadow: 0 0 0 1px #d9bd7b73, 0 12px 35px #0003`.
-В разметке — `<Image width={64} height={64} />`, отдаётся 1x/2x.
+В разметке- `<Image width={64} height={64} />`, отдаётся 1x/2x.
 
 ---
 
-## 6. Шаг 4 — i18n
+## 6. Шаг 4- i18n
 
 Без библиотек. Оригинал использует статический словарь + сегмент `[locale]`.
 
@@ -452,25 +452,25 @@ export function generateStaticParams() {
 export default async function LocaleLayout({
   children, params,
 }: { children: React.ReactNode; params: Promise<{ locale: Locale }> }) {
-  const { locale } = await params        // ← в Next 15+/16 params — Promise
+  const { locale } = await params        // ← в Next 15+/16 params- Promise
   if (!locales.includes(locale)) notFound()
   return children
 }
 ```
 
 > **Ловушка №4.** В Next.js 16 `params` и `searchParams` асинхронные.
-> `const { locale } = params` без `await` — ошибка типов и рантайма.
+> `const { locale } = params` без `await`- ошибка типов и рантайма.
 
 ### Как наполнять словари
 
-Тексты **не переписывать вручную** — извлечь дословно из HTML дампа:
+Тексты **не переписывать вручную**- извлечь дословно из HTML дампа:
 
 - `ru` → `index.html`, `ru/*.html`
 - `kk` → `kk.html`, `kk/*.html`
 - `en` → `en.html`, `en/*.html`
 
 Полный набор строк для формы расчёта уже восстанавливается один-в-один из
-чанка `_next/static/chunks/3hhu--9v5alow.js` — там лежит объект-словарь со
+чанка `_next/static/chunks/3hhu--9v5alow.js`- там лежит объект-словарь со
 всеми тремя локалями (`fields`, `placeholders`, `selectPlaceholder`, `options`,
 `consent`, `privacyLink`, `submit`, `sending`, `error`, `phoneError`,
 `success`, `message`).
@@ -500,7 +500,7 @@ type Dictionary = {
 
 ---
 
-## 7. Шаг 5 — layout и метаданные
+## 7. Шаг 5- layout и метаданные
 
 ### 7.1 `app/layout.tsx`
 
@@ -512,11 +512,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-Атрибут `lang` устанавливается в `[locale]/layout.tsx` — либо вынесите `<html>`
+Атрибут `lang` устанавливается в `[locale]/layout.tsx`- либо вынесите `<html>`
 в локальный layout, либо задайте `lang` через `generateMetadata`/middleware.
-Оригинал отдаёт `<html lang="ru">`, `lang="kk"`, `lang="en"` — воспроизвести обязательно.
+Оригинал отдаёт `<html lang="ru">`, `lang="kk"`, `lang="en"`- воспроизвести обязательно.
 
-### 7.2 `generateMetadata` — полный набор из дампа
+### 7.2 `generateMetadata`- полный набор из дампа
 
 ```ts
 export async function generateMetadata({ params }): Promise<Metadata> {
@@ -618,7 +618,7 @@ export default function robots(): MetadataRoute.Robots {
 
 ---
 
-## 8. Шаг 6 — общие компоненты
+## 8. Шаг 6- общие компоненты
 
 Переносить разметку **дословно**, включая пустые `<span></span>`,
 `aria-hidden="true"` и порядок вложенности: CSS активно использует
@@ -656,10 +656,10 @@ export default function robots(): MetadataRoute.Robots {
 `.internal-estimate-link` (рамка бронза, при hover/active заливается золотом),
 активный пункт получает класс `active`.
 
-### 8.3 `MobileMenu` — без JavaScript
+### 8.3 `MobileMenu`- без JavaScript
 
 Оригинал использует нативный `<details>/<summary>`. **Не заменяйте на
-`useState`** — визуально и по поведению это другое (нет `::marker`-сброса,
+`useState`**- визуально и по поведению это другое (нет `::marker`-сброса,
 другая анимация). Обязательны:
 
 ```css
@@ -669,7 +669,7 @@ export default function robots(): MetadataRoute.Robots {
 
 Показывается на `@media (max-width: 1050px)`.
 
-### 8.4 `ContactArea` — идентична на всех страницах
+### 8.4 `ContactArea`- идентична на всех страницах
 
 Золотой градиент `linear-gradient(115deg,#b89045f7,#d9bd7bf5)`, 4 карточки
 контактов с индексами `01`–`04`, кнопка WhatsApp `.contact-main-button` с
@@ -692,34 +692,34 @@ export default function robots(): MetadataRoute.Robots {
 
 `position: fixed; bottom: 24px; right: 24px; z-index: 40`, круг 62×62 (мобилка 56×56).
 Фон `#1d7b55`, но последний CSS-слой перекрывает его на `#25d366 !important`
-(селектор `a[aria-label*=WhatsApp]`) — **зависит от того, содержит ли
-`aria-label` подстроку «WhatsApp»**. В `ru` — да («Написать Art Stil в WhatsApp»),
+(селектор `a[aria-label*=WhatsApp]`)- **зависит от того, содержит ли
+`aria-label` подстроку «WhatsApp»**. В `ru`- да («Написать Art Stil в WhatsApp»),
 поэтому кнопка зелёная. Сохраните тексты `aria-label` дословно, иначе цвет изменится.
 
 ---
 
-## 9. Шаг 7 — страницы
+## 9. Шаг 7- страницы
 
 ### 9.1 Главная
 
-Каждая секция — отдельный серверный компонент, принимающий срез словаря.
+Каждая секция- отдельный серверный компонент, принимающий срез словаря.
 Ключевые моменты 1:1:
 
 **Hero.** Разметка содержит декоративный `.hero-visual` (солнечный диск + колонны)
 и `.hero-scroll-line`. Оба перекрыты последними слоями CSS
 (`.hero-visual` сжат до `max-width: 850px` контейнера, `.hero-scroll-line`
 скрыт через `display: none !important`). Разметку оставить как есть.
-Нумерованный кружок `.hero-sales-promise span` тоже скрыт — вместо него
+Нумерованный кружок `.hero-sales-promise span` тоже скрыт- вместо него
 работает бронзовая полоска `border-left: 2px solid`.
 
 **ServicesSection.** 3 карточки. Фото приходят **из CSS** через
-`article:nth-child(n):before` — в JSX картинок нет, только `<span>`, `<h3>`, `<p>`.
+`article:nth-child(n):before`- в JSX картинок нет, только `<span>`, `<h3>`, `<p>`.
 Класс секции обязательно `services-section services-visual-section`.
 
 **ObjectTypesSection.** 4 карточки, `<Image fill sizes="(max-width: 760px) 100vw, 25vw" />`,
 затем пустой `<span></span>` (градиентная шторка) и `<strong>01</strong>`.
 
-**CatalogSection.** 6 карточек, картинок в JSX **нет** — фон через
+**CatalogSection.** 6 карточек, картинок в JSX **нет**- фон через
 `article:nth-child(n):before` (см. §4.3, список `catalog-unique/*.jpg`).
 
 **TexturesSection.** 6 плиток, `sizes="(max-width: 760px) 50vw, 17vw"`, плюс
@@ -727,7 +727,7 @@ export default function robots(): MetadataRoute.Robots {
 
 **ProjectsSection.** 3 карточки высотой 500px (1050px → 580px, 760px → 440px).
 
-**FactsSection.** 4 `<article><strong>…</strong><span>…</span></article>` — без обёрток.
+**FactsSection.** 4 `<article><strong>…</strong><span>…</span></article>`- без обёрток.
 
 **ProductionSection.** Сетка `.92fr 1.08fr`: слева 2 `<figure>` с фото
 (690px и 470px min-height), справа 6 шагов.
@@ -739,9 +739,9 @@ export default function robots(): MetadataRoute.Robots {
 
 ### 9.2 `/[locale]/catalog`
 
-6 `<article className="catalog-page-item" id="…">`. У каждой — три колонки:
+6 `<article className="catalog-page-item" id="…">`. У каждой- три колонки:
 `.catalog-page-item-heading` / `.catalog-page-item-visual` / `.catalog-page-item-footer`.
-Визуалы — **чистый CSS-арт** из пустых `<span>`:
+Визуалы- **чистый CSS-арт** из пустых `<span>`:
 
 | Модификатор | Разметка |
 |---|---|
@@ -752,7 +752,7 @@ export default function robots(): MetadataRoute.Robots {
 | `catalog-page-panel` | grid 2×2 из `<span>` 95×95 |
 | `catalog-page-custom` | 3 `<span>` с `rotate(25deg)`, `rotate(-18deg)`, `border-radius: 50%` |
 
-Число `<span>` внутри критично — CSS адресуется через `:nth-child()`.
+Число `<span>` внутри критично- CSS адресуется через `:nth-child()`.
 Скопируйте из `ru/catalog.html` дословно.
 
 ### 9.3 `/[locale]/projects` и `/[locale]/projects/[slug]`
@@ -765,36 +765,36 @@ export function generateStaticParams() {
 }
 ```
 
-На листинге: `.real-projects-grid` — 2 колонки, но **третья карточка**
+На листинге: `.real-projects-grid`- 2 колонки, но **третья карточка**
 (`:last-child`) занимает `grid-column: 1 / -1` и `width: calc(50% - 14px)`.
 На 760px это сбрасывается. Порядок карточек менять нельзя.
 
 Деталь проекта: hero `.85fr 1.15fr`, затем `.project-detail-intro`
 (`.35fr 1.65fr`), `.project-detail-information` (2 колонки, `<ul>` с `◆`),
-галерея `.real-project-gallery` — grid `1.45fr .75fr` / `repeat(2, 310px)`,
+галерея `.real-project-gallery`- grid `1.45fr .75fr` / `repeat(2, 310px)`,
 где `.real-gallery-main` занимает `grid-row: 1/3`.
 
 ### 9.4 `/[locale]/about`
 
-`.about-statistics` — 4 колонки на золотом фоне `var(--gold)`.
-`.about-page-architecture` — CSS-арт: `<div>` (круг 420×420) + несколько `<span>` (колонны).
+`.about-statistics`- 4 колонки на золотом фоне `var(--gold)`.
+`.about-page-architecture`- CSS-арт: `<div>` (круг 420×420) + несколько `<span>` (колонны).
 
 ### 9.5 `/[locale]/privacy`
 
 `.legal-page-content` использует **другой контейнер**: `max(24px, 50vw - 590px)`
-(уже, чем остальные секции — 1180px вместо 1380px). Не унифицировать!
+(уже, чем остальные секции- 1180px вместо 1380px). Не унифицировать!
 
 ### 9.6 `app/not-found.tsx`
 
 Стили `.not-found-page`, `.not-found-content`, `.not-found-actions`,
 `.not-found-decoration` (круг 620×620 с 4 `<span>`-лучами под 0°/45°/90°/135°)
-в CSS есть — страницы в дампе нет, восстановить по стилям.
+в CSS есть- страницы в дампе нет, восстановить по стилям.
 
 ---
 
-## 10. Шаг 8 — единственный клиентский компонент
+## 10. Шаг 8- единственный клиентский компонент
 
-`components/forms/ProjectEstimateForm.tsx` — восстанавливается один-в-один из
+`components/forms/ProjectEstimateForm.tsx`- восстанавливается один-в-один из
 чанка `3hhu--9v5alow.js`. Логика:
 
 ```tsx
@@ -843,7 +843,7 @@ export function ProjectEstimateForm({ locale, whatsappNumber }: Props) {
 }
 ```
 
-Поля (порядок обязателен — сетка 2 колонки):
+Поля (порядок обязателен- сетка 2 колонки):
 `name` (text) · `phone` (tel, `inputMode="tel"`) · `city` (text) ·
 `objectType` (select, 6 опций) · `service` (select, 8) · `stage` (select, 6) ·
 `installation` (select, 4) · `deadline` (select, 5) ·
@@ -852,25 +852,25 @@ export function ProjectEstimateForm({ locale, whatsappNumber }: Props) {
 Каждое поле обёрнуто в `<label className="estimate-field">` со `<span>` +
 `<strong aria-hidden="true">*</strong>` для обязательных.
 
-Селекты: `defaultValue=""` + первая `<option value="" disabled>` — так браузер
+Селекты: `defaultValue=""` + первая `<option value="" disabled>`- так браузер
 покажет плейсхолдер и заблокирует пустую отправку.
 
-Чекбокс согласия — `.estimate-consent` со ссылкой на `/[locale]/privacy`.
-Кнопка — `.button.estimate-submit-button` с кружком `.estimate-submit-icon`
+Чекбокс согласия- `.estimate-consent` со ссылкой на `/[locale]/privacy`.
+Кнопка- `.button.estimate-submit-button` с кружком `.estimate-submit-icon`
 (текст «WA»), `disabled={sending}`.
 
-Сообщения об ошибке/успехе — `<p className="estimate-message estimate-error">`
+Сообщения об ошибке/успехе- `<p className="estimate-message estimate-error">`
 и `estimate-success` (стили уже в CSS).
 
 > **Ловушка №5.** Атрибут `noValidate` на `<form>` в сочетании с ручным
-> `form.reportValidity()` — намеренно: браузер не показывает нативные тултипы
+> `form.reportValidity()`- намеренно: браузер не показывает нативные тултипы
 > при сабмите, но валидацию мы вызываем сами. Не убирайте `noValidate`.
 
 ---
 
 ## 11. Полный реестр анимаций и переходов
 
-`@keyframes` в проекте нет. Все эффекты — `transition`. Список для проверки:
+`@keyframes` в проекте нет. Все эффекты- `transition`. Список для проверки:
 
 | Элемент | Свойство | Длительность | Эффект |
 |---|---|---|---|
@@ -893,12 +893,12 @@ export function ProjectEstimateForm({ locale, whatsappNumber }: Props) {
 | `.footer-legal-links a` | color | `.18s` | → `var(--gold-light)` |
 | `.floating-whatsapp` | transform, box-shadow | `.18s` | hover: `translateY(-4px)` |
 | `.estimate-field input/select/textarea` | border-color, box-shadow | `.18s` | focus: рамка `var(--gold)` + `0 0 0 3px #b890451f` |
-| `.catalog-page-hero` и др. | — | — | статичные декоративные круги, без анимации |
+| `.catalog-page-hero` и др. |- |- | статичные декоративные круги, без анимации |
 
-Глобально: `html { scroll-behavior: smooth }` — работает для якорей
+Глобально: `html { scroll-behavior: smooth }`- работает для якорей
 `#services`, `#catalog`, `#projects`, `#production`, `#contacts` и т.д.
 
-**Отключение эффектов на мобильных** (`max-width: 760px`) — обязательно перенести:
+**Отключение эффектов на мобильных** (`max-width: 760px`)- обязательно перенести:
 
 ```css
 .services-visual-section article:hover,
@@ -921,8 +921,8 @@ export function ProjectEstimateForm({ locale, whatsappNumber }: Props) {
 
 ## 12. Адаптив
 
-Три брейкпоинта + два точечных. Медиа-запросы **только `max-width`** — mobile-last,
-не mobile-first. Не переводите на Tailwind-брейкпоинты (`sm:`/`md:`) — логика инвертирована.
+Три брейкпоинта + два точечных. Медиа-запросы **только `max-width`**- mobile-last,
+не mobile-first. Не переводите на Tailwind-брейкпоинты (`sm:`/`md:`)- логика инвертирована.
 
 | Брейкпоинт | Что меняется |
 |---|---|
@@ -933,13 +933,13 @@ export function ProjectEstimateForm({ locale, whatsappNumber }: Props) {
 | `max-width: 480px` | `.brand-text strong` → 15px; `.footer-main` → 1 колонка; `.internal-header .brand-text` → `display: none` |
 
 > **Ловушка №6.** Заголовки на мобильных получают `hyphens: auto` и
-> `overflow-wrap: anywhere` — без них длинные русские/казахские слова
+> `overflow-wrap: anywhere`- без них длинные русские/казахские слова
 > («стеклофибробетона», «Многоэтажные») вылезают за экран.
 > Плюс `html, body { overflow-x: hidden }`.
 
 ---
 
-## 13. Шаг 9 — верификация пиксельности
+## 13. Шаг 9- верификация пиксельности
 
 Итеративный цикл. Повторять для каждой страницы × каждой локали × каждого брейкпоинта.
 
@@ -988,11 +988,11 @@ npx playwright install chromium
 | Кнопка не бронзовая | не перенесён слой `body .button.button-primary { … !important }` |
 | Съехали отступы секций | заменён `max(24px, 50vw - 690px)` на Tailwind-контейнер |
 | Мобильное меню с треугольником | не перенесён сброс `::-webkit-details-marker` |
-| Третья карточка проектов на всю ширину | это НОРМА — `:last-child { grid-column: 1/-1; width: calc(50% - 14px) }` |
+| Третья карточка проектов на всю ширину | это НОРМА- `:last-child { grid-column: 1/-1; width: calc(50% - 14px) }` |
 
 ---
 
-## 14. Шаг 10 — конфигурация и деплой
+## 14. Шаг 10- конфигурация и деплой
 
 ### 14.1 `app/sitemap.ts`
 
@@ -1021,7 +1021,7 @@ export default function Root() { redirect("/ru") }
 ### 14.3 Сборка и статика
 
 Проект полностью статический (нет БД, нет серверных экшенов). Можно включить
-`output: "export"`, но тогда потеряется оптимизатор `next/image` — придётся
+`output: "export"`, но тогда потеряется оптимизатор `next/image`- придётся
 добавить `images: { unoptimized: true }`. Для Vercel оставьте обычный SSG:
 все страницы предрендерятся через `generateStaticParams`.
 
@@ -1071,15 +1071,15 @@ npm run start
 
 ## 16. Сводка ловушек
 
-1. **Hero должен быть `section:first-of-type`** — иначе слетает фото-фон главной.
-2. **`@import "tailwindcss"` вверху** — preflight в `@layer`, каскад не ломает.
-3. **Кэш `_next/image` содержит JPEG под именами `.webp`** — качайте оригиналы.
-4. **`params` в Next 16 — Promise**, нужен `await`.
-5. **`noValidate` + `reportValidity()`** — намеренная комбинация, не убирать.
-6. **`hyphens: auto` на мобильных заголовках** — иначе горизонтальный скролл.
+1. **Hero должен быть `section:first-of-type`**- иначе слетает фото-фон главной.
+2. **`@import "tailwindcss"` вверху**- preflight в `@layer`, каскад не ломает.
+3. **Кэш `_next/image` содержит JPEG под именами `.webp`**- качайте оригиналы.
+4. **`params` в Next 16- Promise**, нужен `await`.
+5. **`noValidate` + `reportValidity()`**- намеренная комбинация, не убирать.
+6. **`hyphens: auto` на мобильных заголовках**- иначе горизонтальный скролл.
 7. **`aria-label` кнопки WhatsApp влияет на её цвет** (селектор `a[aria-label*=WhatsApp]`).
 8. **`.legal-page-content` имеет свой, более узкий контейнер** (`50vw - 590px`).
-9. **`.hero-scroll-line` намеренно скрыт** последним слоем — разметку оставить.
+9. **`.hero-scroll-line` намеренно скрыт** последним слоем- разметку оставить.
 10. **Порядок и количество `<span>` в CSS-арте** (`catalog-page-*`, `about-page-architecture`, `building-columns`) критичны для `:nth-child`.
 
 ---

@@ -17,7 +17,7 @@ type Props = {
 
 /**
  * Непрозрачная шапка внутренних страниц. Разметка 1:1 из ru/estimate.html
- * (и аналогов kk/en) — включая класс `internal-estimate-link`, у которого
+ * (и аналогов kk/en)- включая класс `internal-estimate-link`, у которого
  * своя стилизация (рамка/заливка), отдельная от остальных пунктов меню.
  */
 export function InternalHeader({ locale, path }: Props) {

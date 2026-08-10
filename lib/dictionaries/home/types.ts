@@ -31,7 +31,6 @@ export type HomeDictionary = {
     eyebrow: string;
     title: string;
     lead: string;
-    link: string;
     items: { number: string; title: string; text: string }[];
   };
   textures: {
@@ -45,15 +44,12 @@ export type HomeDictionary = {
     eyebrow: string;
     title: string;
     lead: string;
-    link: string;
     cards: {
       number: string;
       category: string;
       title: string;
       alt: string;
       image: string;
-      href: string;
-      cta: string;
     }[];
   };
   facts: { value: string; label: string }[];

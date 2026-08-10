@@ -2,7 +2,7 @@ import type { PrivacyDictionary } from "./types";
 
 export const privacyKk: PrivacyDictionary = {
   meta: {
-    title: "Құпиялық саясаты — Art Stil",
+    title: "Құпиялық саясаты- Art Stil",
     description:
       "Бұл саясат Art Stil сайты арқылы қандай деректер алынуы мүмкін екенін және олардың қалай пайдаланылатынын түсіндіреді.",
   },

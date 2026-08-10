@@ -37,7 +37,6 @@ export const homeEn: HomeDictionary = {
     eyebrow: "Product catalogue",
     title: "Architectural GRC elements",
     lead: "We manufacture standard and bespoke products based on architectural drawings, sketches and visualisations.",
-    link: "Open catalogue",
     items: [
       { number: "01", title: "Columns and capitals", text: "Classical and contemporary columns, half-columns, bases and capitals." },
       { number: "02", title: "Cornices and mouldings", text: "Crown, horizontal and decorative elements in various profiles." },
@@ -65,11 +64,10 @@ export const homeEn: HomeDictionary = {
     eyebrow: "Completed projects",
     title: "Architecture demonstrated through real work",
     lead: "The Art Stil portfolio includes private residences, commercial buildings and major public properties.",
-    link: "View all projects",
     cards: [
-      { number: "01", category: "Private architecture", title: "Decorative treatment of a private residence", alt: "Private residence with Art Stil architectural facade decor", image: "/images/projects/private-residence.webp", href: "/en/projects/classic-residence", cta: "View project" },
-      { number: "02", category: "Commercial architecture", title: "Large-scale classical facade", alt: "Multi-storey building with classical Art Stil facade decor", image: "/images/projects/grand-building.webp", href: "/en/projects/grand-hall", cta: "View project" },
-      { number: "03", category: "Public architecture", title: "Monumental arched entrance", alt: "Monumental arched entrance made of glass fibre reinforced concrete", image: "/images/projects/public-arch.webp", href: "/en/projects/commercial-facade", cta: "View project" },
+      { number: "01", category: "Private architecture", title: "Decorative treatment of a private residence", alt: "Private residence with Art Stil architectural facade decor", image: "/images/projects/private-residence.webp" },
+      { number: "02", category: "Commercial architecture", title: "Large-scale classical facade", alt: "Multi-storey building with classical Art Stil facade decor", image: "/images/projects/grand-building.webp" },
+      { number: "03", category: "Public architecture", title: "Monumental arched entrance", alt: "Monumental arched entrance made of glass fibre reinforced concrete", image: "/images/projects/public-arch.webp" },
     ],
   },
   facts: [

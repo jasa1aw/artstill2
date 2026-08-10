@@ -3,7 +3,7 @@
 /*
  * Перенесено 1:1 из оригинального бандла artstil.kz
  * (_next/static/chunks/1g2snlkp6isx6.css).
- * Порядок правил и !important сохранены намеренно — см. MIGRATION-NEXTJS16-TAILWIND.md §2.2.
+ * Порядок правил и !important сохранены намеренно- см. MIGRATION-NEXTJS16-TAILWIND.md §2.2.
  * Tailwind v4 preflight (@layer theme / @layer base) уже подключён через @import выше,
  * поэтому оригинальный дублирующий блок вырезан.
  */

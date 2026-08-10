@@ -8,5 +8,5 @@ export const INSTAGRAM_HANDLE = "@artstil.kz";
 export const WHATSAPP_HREF = `https://wa.me/${WHATSAPP_NUMBER}`;
 
 export const BRAND_NAME = "ART STIL";
-/** Тэглайн намеренно не переводится — так во всех 3 локалях исходника. */
+/** Тэглайн намеренно не переводится- так во всех 3 локалях исходника. */
 export const BRAND_TAGLINE = "Architectural decor";

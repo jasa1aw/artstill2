@@ -22,7 +22,7 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {};
 
   const page = privacyDictionary[locale].meta;
-  // og/twitter намеренно берутся из общесайтовых meta — так было в оригинале.
+  // og/twitter намеренно берутся из общесайтовых meta- так было в оригинале.
   const site = siteMeta[locale];
   const url = `${SITE_URL}/${locale}/${PAGE_PATH}`;
 

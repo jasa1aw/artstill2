@@ -2,7 +2,7 @@ import type { EstimateDictionary } from "./types";
 
 export const estimateKk: EstimateDictionary = {
   meta: {
-    title: "Жобаңыз туралы айтып беріңіз — Art Stil",
+    title: "Жобаңыз туралы айтып беріңіз- Art Stil",
     description:
       "Қысқа брифті толтырыңыз. Жібергеннен кейін Art Stil менеджеріне арналған дайын хабарламамен WhatsApp ашылады.",
   },
