@@ -93,7 +93,11 @@ export default async function EstimatePage({
           <p className="eyebrow">{t.brief.eyebrow}</p>
           <h2>{t.brief.title}</h2>
           <p className="estimate-form-introduction">{t.brief.intro}</p>
-          <ProjectEstimateForm privacyHref={`/${locale}/privacy`} t={t.formFields} />
+          <ProjectEstimateForm
+            privacyHref={`/${locale}/privacy`}
+            locale={locale}
+            t={t.formFields}
+          />
         </div>
         <aside className="estimate-sidebar">
           <article>

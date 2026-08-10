@@ -1,0 +1,849 @@
+/*
+ * Пошаговый бриф. Стили намеренно живут отдельным файлом, а не в
+ * app/globals.css- тот перенесён 1:1 из оригинального бандла и его
+ * лучше не трогать (см. MIGRATION-NEXTJS16-TAILWIND.md §2.2).
+ * Все классы с префиксом brief-, поэтому порядок подключения не важен.
+ *
+ * Токены (--navy, --gold, --premium-bronze…) объявлены в globals.css.
+ * Прямые углы, Georgia в заголовках и uppercase-микролейблы- язык сайта.
+ */
+
+.brief {
+  border-top: 1px solid var(--line);
+  padding-top: 38px;
+
+  /*
+   * Брендовая бронза (--premium-bronze #b08a57) на светлом фоне даёт
+   * всего ~3:1- для мелкого текста этого мало. Затемнённый вариант
+   * читается как та же бронза, но проходит WCAG AA (4.9:1).
+   */
+  --brief-bronze-text: #8a6636;
+}
+
+.brief-sr {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/* ---------- Прогресс ---------- */
+
+.brief-progress {
+  margin-bottom: 40px;
+}
+
+.brief-progress-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.brief-progress-label,
+.brief-progress-percent {
+  color: var(--navy);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.brief-progress-percent {
+  color: var(--brief-bronze-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.brief-progress-rail {
+  background: #102c5c1f;
+  height: 2px;
+  overflow: hidden;
+}
+
+.brief-progress-fill {
+  background: var(--premium-bronze);
+  height: 100%;
+  transition: width 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.brief-progress-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.brief-step-chip {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: default;
+  display: flex;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  gap: 9px;
+  letter-spacing: 1.1px;
+  /* Кружок- 26px, но зона нажатия должна быть не меньше 44px. */
+  min-height: 44px;
+  padding: 0;
+  text-align: left;
+  text-transform: uppercase;
+  transition: color 0.18s;
+}
+
+.brief-step-chip-index {
+  align-items: center;
+  border: 1px solid #102c5c33;
+  color: inherit;
+  display: inline-flex;
+  flex: none;
+  font-size: 10px;
+  height: 26px;
+  justify-content: center;
+  transition: background-color 0.18s, border-color 0.18s, color 0.18s;
+  width: 26px;
+}
+
+.brief-step-chip-index svg {
+  height: 11px;
+  width: 11px;
+}
+
+.brief-step-chip-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.brief-step-chip.is-reachable {
+  cursor: pointer;
+}
+
+.brief-step-chip.is-reachable:hover .brief-step-chip-index {
+  border-color: var(--brief-bronze-text);
+  color: var(--brief-bronze-text);
+}
+
+.brief-step-chip.is-done {
+  color: var(--muted);
+}
+
+.brief-step-chip.is-done .brief-step-chip-index {
+  background: var(--premium-bronze);
+  border-color: var(--premium-bronze);
+  color: #fff;
+}
+
+.brief-step-chip.is-active {
+  color: var(--navy);
+}
+
+.brief-step-chip.is-active .brief-step-chip-index {
+  background: var(--navy-dark);
+  border-color: var(--navy-dark);
+  color: #fff;
+}
+
+.brief-step-chip:focus-visible {
+  outline: 2px solid var(--premium-bronze);
+  outline-offset: 3px;
+}
+
+/* ---------- Панель шага ---------- */
+
+.brief-panel {
+  animation: brief-panel-in 0.26s cubic-bezier(0.22, 1, 0.36, 1) both;
+  border: 0;
+  margin: 0;
+  min-inline-size: 0;
+  padding: 0;
+}
+
+@keyframes brief-panel-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+}
+
+.brief-panel-head {
+  margin: 12px 0 30px;
+}
+
+.brief-panel-title {
+  color: var(--text);
+  display: block;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 2.6vw, 31px);
+  font-weight: 400;
+  line-height: 1.2;
+  padding: 0;
+}
+
+.brief-panel-title:focus {
+  outline: none;
+}
+
+.brief-panel-hint {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 12px 0 0;
+  max-width: 62ch;
+}
+
+.brief-grid {
+  display: grid;
+  gap: 26px 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.brief-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.brief-field-wide {
+  grid-column: 1 / -1;
+}
+
+.brief-label {
+  align-items: baseline;
+  color: var(--navy);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 10px;
+  font-weight: 700;
+  gap: 8px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.brief-label-required {
+  color: var(--brief-bronze-text);
+}
+
+.brief-label-optional {
+  color: var(--muted);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.brief-input,
+.brief-textarea {
+  background: #fff;
+  border: 1px solid #102c5c33;
+  border-radius: 0;
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+  min-height: 58px;
+  outline: none;
+  padding: 15px 17px;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  width: 100%;
+}
+
+.brief-textarea {
+  line-height: 1.65;
+  min-height: 150px;
+  resize: vertical;
+}
+
+.brief-input::placeholder,
+.brief-textarea::placeholder {
+  color: #1720336b;
+}
+
+.brief-input:hover,
+.brief-textarea:hover {
+  border-color: #102c5c59;
+}
+
+.brief-input:focus-visible,
+.brief-textarea:focus-visible {
+  border-color: var(--premium-bronze);
+  box-shadow: 0 0 0 3px #b08a5730;
+}
+
+.brief-field.has-error .brief-input,
+.brief-field.has-error .brief-textarea {
+  border-color: #9c3131;
+}
+
+.brief-field.has-error .brief-input:focus-visible,
+.brief-field.has-error .brief-textarea:focus-visible {
+  box-shadow: 0 0 0 3px #9c31311f;
+}
+
+.brief-hint {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.brief-hint-row {
+  align-items: baseline;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.brief-counter {
+  color: var(--muted);
+  flex: none;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.6px;
+}
+
+.brief-field-error {
+  align-items: flex-start;
+  color: #8f2727;
+  display: flex;
+  font-size: 12px;
+  gap: 8px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.brief-field-error svg {
+  flex: none;
+  height: 14px;
+  margin-top: 1px;
+  width: 14px;
+}
+
+/* ---------- Карточки выбора вместо <select> ---------- */
+
+.brief-choice {
+  border: 0;
+  margin: 0;
+  min-inline-size: 0;
+  padding: 0;
+}
+
+.brief-choice-legend {
+  color: var(--navy);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  margin-bottom: 12px;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.brief-choice-legend span {
+  color: var(--brief-bronze-text);
+  margin-left: 6px;
+}
+
+.brief-options {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.brief-option {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #102c5c29;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  gap: 13px;
+  line-height: 1.45;
+  min-height: 62px;
+  padding: 14px 17px;
+  position: relative;
+  transition: border-color 0.18s, box-shadow 0.18s, background-color 0.18s;
+}
+
+.brief-option:hover {
+  border-color: var(--premium-bronze);
+}
+
+.brief-option input {
+  height: 1px;
+  opacity: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.brief-option-mark {
+  align-items: center;
+  border: 1px solid #102c5c40;
+  border-radius: 50%;
+  display: inline-flex;
+  flex: none;
+  height: 20px;
+  justify-content: center;
+  transition: background-color 0.18s, border-color 0.18s;
+  width: 20px;
+}
+
+.brief-option-mark svg {
+  height: 11px;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.16s, transform 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 11px;
+}
+
+/* .is-selected ставит React; :has()- запасной вариант, если состояние
+   изменил сам браузер (автозаполнение, восстановление формы). */
+.brief-option.is-selected,
+.brief-option:has(input:checked) {
+  background: #b08a570d;
+  border-color: var(--premium-bronze);
+  box-shadow: inset 3px 0 0 var(--premium-bronze);
+}
+
+.brief-option.is-selected .brief-option-mark,
+.brief-option:has(input:checked) .brief-option-mark {
+  background: var(--premium-bronze);
+  border-color: var(--premium-bronze);
+  color: #fff;
+}
+
+.brief-option.is-selected .brief-option-mark svg,
+.brief-option:has(input:checked) .brief-option-mark svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.brief-option:focus-within {
+  border-color: var(--premium-bronze);
+  box-shadow: 0 0 0 3px #b08a5730;
+}
+
+.brief-option.is-selected:focus-within {
+  box-shadow: inset 3px 0 0 var(--premium-bronze), 0 0 0 3px #b08a5730;
+}
+
+.brief-choice.has-error .brief-option {
+  border-color: #9c313159;
+}
+
+.brief-choice .brief-field-error {
+  margin-top: 11px;
+}
+
+/* ---------- Проверка перед отправкой ---------- */
+
+.brief-review {
+  border: 1px solid var(--line);
+  margin-top: 34px;
+}
+
+.brief-review-head {
+  align-items: baseline;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  justify-content: space-between;
+  padding: 20px 22px;
+}
+
+.brief-review-title {
+  color: var(--navy);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.brief-review-toggle {
+  background: none;
+  border: 0;
+  color: var(--brief-bronze-text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 0;
+  text-decoration: underline;
+  text-transform: uppercase;
+  text-underline-offset: 3px;
+}
+
+.brief-review-list {
+  margin: 0;
+  padding: 6px 22px 18px;
+}
+
+.brief-review-row {
+  align-items: baseline;
+  border-bottom: 1px solid #102c5c14;
+  display: grid;
+  gap: 6px 18px;
+  grid-template-columns: minmax(120px, 0.42fr) minmax(0, 1fr) auto;
+  padding: 13px 0;
+}
+
+.brief-review-row:last-child {
+  border-bottom: 0;
+}
+
+.brief-review-key {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.brief-review-value {
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.brief-review-edit {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.9px;
+  min-height: 44px;
+  padding: 0 0 0 8px;
+  text-decoration: underline;
+  text-transform: uppercase;
+  text-underline-offset: 3px;
+  transition: color 0.18s;
+}
+
+.brief-review-edit:hover {
+  color: var(--brief-bronze-text);
+}
+
+.brief-review-text {
+  background: var(--navy-dark);
+  color: #ffffffde;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.75;
+  margin: 0;
+  max-height: 340px;
+  overflow: auto;
+  padding: 22px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.brief-review-note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+  margin: 14px 0 0;
+}
+
+/* ---------- Согласие, сообщения, кнопки ---------- */
+
+.brief-consent {
+  align-items: flex-start;
+  cursor: pointer;
+  display: flex;
+  gap: 13px;
+  margin-top: 26px;
+}
+
+.brief-consent input {
+  accent-color: var(--navy);
+  flex: none;
+  height: 18px;
+  margin: 2px 0 0;
+  width: 18px;
+}
+
+.brief-consent span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+  max-width: 720px;
+}
+
+.brief-consent.has-error {
+  background: #9c31310d;
+  box-shadow: inset 3px 0 0 #9c3131;
+  padding: 12px 14px;
+}
+
+.brief-consent + .brief-field-error {
+  margin-top: 10px;
+}
+
+.brief-privacy-link {
+  color: var(--navy);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.brief-alert {
+  border-left: 3px solid;
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 22px 0 0;
+  padding: 15px 17px;
+}
+
+.brief-alert-error {
+  background: #9c313114;
+  border-color: #9c3131;
+  color: #772020;
+}
+
+.brief-alert-success {
+  background: #39745b17;
+  border-color: #39745b;
+  color: #285440;
+}
+
+.brief-alert-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin-top: 12px;
+}
+
+.brief-alert-actions a,
+.brief-alert-actions button {
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.9px;
+  padding: 0;
+  text-decoration: underline;
+  text-transform: uppercase;
+  text-underline-offset: 3px;
+}
+
+.brief-draft {
+  align-items: baseline;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 12px;
+  gap: 6px 14px;
+  margin: 0 0 24px;
+}
+
+.brief-draft button {
+  background: none;
+  border: 0;
+  color: var(--brief-bronze-text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.brief-actions {
+  align-items: center;
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  margin-top: 36px;
+}
+
+.brief-back,
+.brief-next,
+.brief-submit {
+  align-items: center;
+  border-radius: 0;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  gap: 12px;
+  justify-content: center;
+  letter-spacing: 1px;
+  min-height: 56px;
+  padding: 0 27px;
+  text-transform: uppercase;
+  transition: transform 0.18s, background-color 0.18s, border-color 0.18s, color 0.18s;
+}
+
+.brief-back {
+  background: none;
+  border: 1px solid #102c5c40;
+  color: var(--navy);
+}
+
+.brief-back:hover {
+  border-color: var(--navy-dark);
+  transform: translateY(-2px);
+}
+
+.brief-next,
+.brief-submit {
+  background: var(--premium-bronze);
+  border: 1px solid var(--premium-bronze);
+  box-shadow: 0 14px 34px #402f1a2e;
+  color: #fff;
+  min-width: 240px;
+}
+
+.brief-next:hover,
+.brief-submit:hover:not(:disabled) {
+  background: var(--premium-bronze-hover);
+  border-color: var(--premium-bronze-hover);
+  transform: translateY(-2px);
+}
+
+.brief-submit:disabled {
+  cursor: wait;
+  opacity: 0.7;
+  transform: none;
+}
+
+.brief-back:focus-visible,
+.brief-next:focus-visible,
+.brief-submit:focus-visible {
+  outline: 2px solid var(--navy-dark);
+  outline-offset: 3px;
+}
+
+.brief-next svg,
+.brief-back svg {
+  height: 13px;
+  width: 13px;
+}
+
+.brief-submit-icon {
+  align-items: center;
+  border: 1px solid #ffffff80;
+  border-radius: 50%;
+  display: inline-flex;
+  flex: none;
+  height: 29px;
+  justify-content: center;
+  width: 29px;
+}
+
+.brief-submit-icon svg {
+  height: 15px;
+  width: 15px;
+}
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 900px) {
+  .brief-review-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .brief-review-key {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .brief-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brief-field-wide {
+    grid-column: auto;
+  }
+
+  /* Подписи шагов не помещаются- остаются кружки с номерами,
+     имя кнопки задано через aria-label в компоненте. */
+  .brief-step-chip-text {
+    display: none;
+  }
+
+  .brief-progress-steps {
+    gap: 4px;
+    grid-template-columns: repeat(4, auto);
+    justify-content: start;
+  }
+
+  .brief-step-chip {
+    justify-content: center;
+    min-width: 44px;
+  }
+
+  /* 16px- иначе iOS зумит страницу при фокусе в поле. */
+  .brief-input,
+  .brief-textarea {
+    font-size: 16px;
+  }
+
+  .brief-option {
+    font-size: 15px;
+  }
+
+  .brief-options {
+    grid-template-columns: 1fr;
+  }
+
+  .brief-actions {
+    flex-direction: column-reverse;
+    gap: 12px;
+  }
+
+  .brief-back,
+  .brief-next,
+  .brief-submit {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .brief-review-text {
+    font-size: 11px;
+    padding: 18px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brief-panel {
+    animation: none;
+  }
+
+  .brief-progress-fill,
+  .brief-option,
+  .brief-option-mark,
+  .brief-option-mark svg,
+  .brief-back,
+  .brief-next,
+  .brief-submit {
+    transition-duration: 0.01ms;
+  }
+
+  .brief-back:hover,
+  .brief-next:hover,
+  .brief-submit:hover:not(:disabled) {
+    transform: none;
+  }
+}

@@ -15,7 +15,7 @@ export const estimateEn: EstimateDictionary = {
     eyebrow: "Project brief",
     title: "Essential property information",
     intro:
-      "The form takes approximately two minutes. The final price can be determined after reviewing dimensions, photographs or drawings.",
+      "Four short steps, about two minutes. The final price can be determined after reviewing dimensions, photographs or drawings.",
   },
   sidebar: {
     prepareTitle: "Useful materials to prepare",
@@ -48,17 +48,65 @@ export const estimateEn: EstimateDictionary = {
     },
     placeholders: {
       name: "For example, Arman",
-      phone: "+7 700 000 00 00",
+      phone: "+7 (700) 000 00 00",
       city: "For example, Almaty",
       description: "Describe the facade, approximate dimensions and whether drawings or photographs are available...",
     },
-    selectPlaceholder: "Select an option",
+    hints: {
+      phone: "The manager will reply to this number on WhatsApp.",
+      description: "Optional, but it helps us prepare a more accurate estimate.",
+    },
     options: {
       objectTypes: ["Private residence", "Residential development", "Commercial building", "Public building", "Facade reconstruction", "Other property"],
       services: ["Complete facade decoration", "Cornices and mouldings", "Columns and capitals", "Window surrounds", "Balustrades and arches", "Facade panels", "Bespoke architectural products", "Initial consultation"],
       stages: ["Architectural project is ready", "Sketch or visualisation is available", "Property is under construction", "Property is already completed", "Reconstruction is planned", "Initial concept only"],
       installation: ["Installation is required", "Delivery without installation", "Installation supervision", "Not decided yet"],
       deadlines: ["As soon as possible", "Within 1 month", "Within 1–3 months", "After 3 months", "Schedule not decided yet"],
+    },
+    steps: {
+      contacts: {
+        chip: "Contacts",
+        title: "How to reach you",
+        hint: "The manager replies on WhatsApp during business hours.",
+      },
+      object: {
+        chip: "Property",
+        title: "Tell us about the property",
+        hint: "Pick the option closest to your situation.",
+      },
+      task: {
+        chip: "Scope",
+        title: "What needs to be done",
+        hint: "Not sure yet? Choose “Initial consultation”.",
+      },
+      details: {
+        chip: "Review",
+        title: "Details and review",
+        hint: "Check your answers- this is exactly what the manager receives.",
+      },
+    },
+    nav: {
+      progress: "Step {step} of {total}",
+      back: "Back",
+      next: "Continue",
+      edit: "Edit",
+      optional: "Optional",
+    },
+    review: {
+      title: "Your brief",
+      note: "The message is already formatted- just press Send in WhatsApp.",
+      showText: "Show message text",
+      hideText: "Hide message text",
+    },
+    draft: {
+      restored: "An unfinished brief was restored.",
+      clear: "Start over",
+    },
+    fallback: {
+      text: "The browser blocked the WhatsApp window. Open the chat manually or copy the brief text.",
+      open: "Open WhatsApp",
+      copy: "Copy text",
+      copied: "Copied",
     },
     consent: "I consent to the processing of the submitted information for a project consultation.",
     privacyLink: "Privacy policy",
@@ -67,8 +115,22 @@ export const estimateEn: EstimateDictionary = {
     error: "Please complete all required fields.",
     phoneError: "Please check the phone number. It must contain at least 7 digits.",
     success: "The brief is ready. Press Send in the WhatsApp window that opened.",
+    fieldErrors: {
+      name: "Please tell us how to address you.",
+      phone: "Please check the phone number. It must contain at least 7 digits.",
+      city: "Please specify the project location.",
+      choice: "Please select one of the options.",
+      consent: "We cannot process the enquiry without your consent.",
+    },
     message: {
-      title: "New Art Stil website enquiry",
+      title: "NEW ENQUIRY — ART STIL",
+      source: "Brief from artstil.kz",
+      sections: {
+        contacts: "Contacts",
+        object: "Property",
+        task: "Scope",
+        description: "Description",
+      },
       name: "Name",
       phone: "Phone",
       city: "Project location",
