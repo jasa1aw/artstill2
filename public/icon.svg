@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#102c5c"/>
+  <circle cx="256" cy="256" r="176" fill="none" stroke="#d9bd7b" stroke-width="8"/>
+  <circle cx="256" cy="256" r="146" fill="none" stroke="#b89045" stroke-width="2" opacity=".55"/>
+  <path d="M144 324h224M170 290h172M192 188h128M210 156h92" fill="none" stroke="#d9bd7b" stroke-width="10" stroke-linecap="square"/>
+  <path d="M194 198v88M236 198v88M278 198v88M320 198v88" fill="none" stroke="#d9bd7b" stroke-width="8"/>
+  <text x="256" y="386" text-anchor="middle" font-family="Georgia,serif" font-size="42" letter-spacing="8" fill="#d9bd7b">ART STIL</text>
+</svg>

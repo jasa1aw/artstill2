@@ -1,0 +1,128 @@
+import type { HomeDictionary } from "./types";
+
+export const homeEn: HomeDictionary = {
+  hero: {
+    eyebrow: "Almaty · Projects across Kazakhstan",
+    title: "Turnkey architectural GRC facade decor",
+    description:
+      "We design, manufacture and professionally install facade decor for private residences, residential developments and commercial buildings.",
+    salesCopy: "Design, in-house production, delivery and professional installation across Kazakhstan.",
+    promise: "Initial estimate within 1 business day",
+    ctaPrimary: "Calculate a project",
+    ctaSecondary: "View projects",
+    facts: ["20 years of experience", "3-year warranty", "In-house production"],
+  },
+  services: {
+    eyebrow: "Art Stil capabilities",
+    title: "Complete architectural facade solutions",
+    lead: "From the initial concept and mould development to manufacturing, delivery and installation.",
+    cards: [
+      { number: "01", title: "Design", text: "We develop custom facade concepts from drawings, visualisations or photographs of the building." },
+      { number: "02", title: "Production", text: "We manufacture cornices, columns, panels, balustrades and custom architectural elements." },
+      { number: "03", title: "Installation", text: "We provide delivery, professional installation and on-site quality control." },
+    ],
+  },
+  objectTypes: {
+    eyebrow: "Solutions for every property type",
+    title: "Architectural decor for private, commercial and public buildings",
+    lead: "We develop facade elements for each individual property, from private residences to large public entrances.",
+    cards: [
+      { title: "Private residences", text: "Columns, cornices, balustrades, entrances, mouldings and window surrounds.", alt: "Private residences", image: "/images/showcase/object-private-house-v2.webp", number: "01" },
+      { title: "Multi-storey and commercial buildings", text: "Large-format elements, pilasters, horizontal bands and complex facade compositions.", alt: "Multi-storey and commercial buildings", image: "/images/showcase/object-commercial-building-v2.webp", number: "02" },
+      { title: "Facade panels", text: "Smooth, relief and bespoke panels for cladding and architectural treatment.", alt: "Facade panels", image: "/images/showcase/object-facade-panels-v2.webp", number: "03" },
+      { title: "Small architectural forms", text: "Arches, entrances, decorative structures and landscape elements.", alt: "Small architectural forms", image: "/images/showcase/object-small-architecture-v2.webp", number: "04" },
+    ],
+  },
+  catalog: {
+    eyebrow: "Product catalogue",
+    title: "Architectural GRC elements",
+    lead: "We manufacture standard and bespoke products based on architectural drawings, sketches and visualisations.",
+    link: "Open catalogue",
+    items: [
+      { number: "01", title: "Columns and capitals", text: "Classical and contemporary columns, half-columns, bases and capitals." },
+      { number: "02", title: "Cornices and mouldings", text: "Crown, horizontal and decorative elements in various profiles." },
+      { number: "03", title: "Window surrounds", text: "Surrounds, sills, pediments, keystones and decorative inserts." },
+      { number: "04", title: "Arches and entrances", text: "Arches, portals, decorative pediments and main entrance treatments." },
+      { number: "05", title: "Balustrades", text: "Balusters, handrails and complete solutions for balconies and terraces." },
+      { number: "06", title: "Bespoke products", text: "Complex architectural elements manufactured from drawings and concepts." },
+    ],
+  },
+  textures: {
+    eyebrow: "Texture and colour",
+    title: "A surface created for the architectural concept",
+    lead: "Products are available with a smooth finish, ready for painting, integrally coloured or with a bespoke decorative texture.",
+    items: [
+      { title: "Smooth finish", text: "Clean geometry for classical and contemporary facades.", alt: "Smooth finish", image: "/images/showcase/texture-smooth-facade-v2.webp" },
+      { title: "Natural stone effect", text: "An expressive surface inspired by natural materials.", alt: "Natural stone effect", image: "/images/showcase/texture-natural-stone-v2.webp" },
+      { title: "Travertine effect", text: "A warm stone texture for refined architectural solutions.", alt: "Travertine effect", image: "/images/showcase/texture-travertine-v2.webp" },
+      { title: "Sandstone effect", text: "A natural-looking matt and subtly granular surface.", alt: "Sandstone effect", image: "/images/showcase/texture-sandstone-v2.webp" },
+      { title: "Integral colour", text: "Pigment is introduced directly into the material.", alt: "Integral colour", image: "/images/showcase/texture-integral-colour-v2.webp" },
+      { title: "Bespoke texture", text: "A surface developed from a sample or project concept.", alt: "Bespoke texture", image: "/images/showcase/texture-bespoke-v2.webp" },
+    ],
+    note: "The final colour and texture are approved from a physical sample before the main production run.",
+  },
+  projects: {
+    eyebrow: "Completed projects",
+    title: "Architecture demonstrated through real work",
+    lead: "The Art Stil portfolio includes private residences, commercial buildings and major public properties.",
+    link: "View all projects",
+    cards: [
+      { number: "01", category: "Private architecture", title: "Decorative treatment of a private residence", alt: "Private residence with Art Stil architectural facade decor", image: "/images/projects/private-residence.webp", href: "/en/projects/classic-residence", cta: "View project" },
+      { number: "02", category: "Commercial architecture", title: "Large-scale classical facade", alt: "Multi-storey building with classical Art Stil facade decor", image: "/images/projects/grand-building.webp", href: "/en/projects/grand-hall", cta: "View project" },
+      { number: "03", category: "Public architecture", title: "Monumental arched entrance", alt: "Monumental arched entrance made of glass fibre reinforced concrete", image: "/images/projects/public-arch.webp", href: "/en/projects/commercial-facade", cta: "View project" },
+    ],
+  },
+  facts: [
+    { value: "20", label: "years of experience" },
+    { value: "3", label: "year warranty" },
+    { value: "100%", label: "in-house production" },
+    { value: "KZ", label: "projects across Kazakhstan" },
+  ],
+  production: {
+    eyebrow: "Complete project cycle",
+    title: "From architectural concept to completed facade",
+    lead: "Art Stil supports the project throughout development, production, delivery and installation.",
+    photos: [
+      { alt: "From architectural concept to completed facade", image: "/images/showcase/process-elements-v2.webp" },
+      { alt: "Reliable fixing designed for the building structure", image: "/images/showcase/process-scaffolding-v2.webp" },
+    ],
+    steps: [
+      { number: "01", title: "Project review", text: "We examine the concept, dimensions, visualisations and requirements." },
+      { number: "02", title: "Survey and drawings", text: "Geometry, working drawings and fixing details are prepared." },
+      { number: "03", title: "Modelling and moulds", text: "Models and production moulds are created for each element." },
+      { number: "04", title: "Production", text: "Products are manufactured and checked for geometry and finish." },
+      { number: "05", title: "Delivery", text: "Elements are packed and transported safely to the project site." },
+      { number: "06", title: "Installation", text: "Elements are installed, joints are finished and the facade is handed over." },
+    ],
+  },
+  installation: {
+    eyebrow: "Professional installation",
+    title: "Reliable fixing designed for the building structure",
+    lead: "The fixing method is selected according to the substrate, element dimensions, loads and architectural requirements.",
+    alt: "Reliable fixing designed for the building structure",
+    image: "/images/showcase/installation-building-v2.webp",
+    list: [
+      "Setting out and substrate preparation",
+      "Installation of large-format elements",
+      "Installation of columns, cornices and panels",
+      "Jointing and finishing",
+      "Geometry control and final handover",
+    ],
+    cta: "Discuss installation",
+  },
+  b2b: {
+    eyebrow: "For architects and construction companies",
+    title: "Technical project support and production from drawings",
+    lead: "We work with architects, designers, developers, contractors and construction companies.",
+    list: [
+      "Adaptation of the concept for architectural GRC",
+      "Working drawings and fixing details",
+      "Texture and colour samples",
+      "Quantity calculation and proposal preparation",
+      "Production from bespoke drawings",
+      "Delivery, installation and project support",
+    ],
+    promise: "Initial project estimate within 1 business day",
+    cta: "Send a project for estimate",
+  },
+};
