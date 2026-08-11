@@ -106,7 +106,7 @@ export const homeEn: HomeDictionary = {
       "Jointing and finishing",
       "Geometry control and final handover",
     ],
-    cta: "Discuss installation",
+    cta: "Get a consultation",
   },
   b2b: {
     eyebrow: "For architects and construction companies",

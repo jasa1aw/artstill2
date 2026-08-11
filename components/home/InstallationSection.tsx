@@ -1,7 +1,7 @@
-import Link from "next/link";
 import Image from "next/image";
 import type { Locale } from "@/lib/i18n";
 import { homeDictionary } from "@/lib/dictionaries/home";
+import { LeadTriggerButton } from "@/components/lead/LeadTriggerButton";
 
 export function InstallationSection({ locale }: { locale: Locale }) {
   const t = homeDictionary[locale].installation;
@@ -27,9 +27,7 @@ export function InstallationSection({ locale }: { locale: Locale }) {
             <li key={item}>{item}</li>
           ))}
         </ul>
-        <Link className="button button-primary" href={`/${locale}/estimate`}>
-          {t.cta}
-        </Link>
+        <LeadTriggerButton label={t.cta} className="button button-primary" />
       </div>
     </section>
   );

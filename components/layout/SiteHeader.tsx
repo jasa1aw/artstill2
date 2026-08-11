@@ -4,6 +4,7 @@ import type { Locale } from "@/lib/i18n";
 import { locales, localeLabels } from "@/lib/i18n";
 import { layoutDictionary } from "@/lib/dictionaries/layout";
 import { BRAND_NAME, BRAND_TAGLINE } from "@/lib/site";
+import { MobileMenu } from "@/components/layout/MobileMenu";
 
 /**
  * Прозрачная шапка главной страницы (`position: absolute` поверх hero).
@@ -60,26 +61,11 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           ))}
         </div>
 
-        <details className="mobile-menu">
-          <summary aria-label={t.menuAria}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </summary>
-          <nav>
-            {t.homeHeader.nav.map((item) =>
-              item.href.startsWith("#") ? (
-                <a key={item.href} href={item.href}>
-                  {item.label}
-                </a>
-              ) : (
-                <Link key={item.href} href={item.href}>
-                  {item.label}
-                </Link>
-              ),
-            )}
-          </nav>
-        </details>
+        <MobileMenu
+          navItems={t.homeHeader.nav}
+          menuAria={t.menuAria}
+          cta={t.homeHeader.cta}
+        />
       </div>
     </header>
   );

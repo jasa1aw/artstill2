@@ -1,6 +1,7 @@
 import type { Locale } from "@/lib/i18n";
 import { layoutDictionary } from "@/lib/dictionaries/layout";
-import { INSTAGRAM_HANDLE, INSTAGRAM_URL, PHONE_DISPLAY, PHONE_HREF, WHATSAPP_HREF } from "@/lib/site";
+import { INSTAGRAM_HANDLE, INSTAGRAM_URL, PHONE_DISPLAY, PHONE_HREF } from "@/lib/site";
+import { LeadTriggerButton } from "@/components/lead/LeadTriggerButton";
 
 /** Золотая CTA-секция перед футером. Одинаковая на всех страницах сайта. */
 export function ContactArea({ locale }: { locale: Locale }) {
@@ -13,17 +14,7 @@ export function ContactArea({ locale }: { locale: Locale }) {
           <p className="eyebrow">{t.eyebrow}</p>
           <h2>{t.title}</h2>
           <p>{t.lead}</p>
-          <a
-            className="button contact-main-button"
-            href={WHATSAPP_HREF}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span className="whatsapp-dot" aria-hidden="true">
-              WA
-            </span>
-            {t.cta}
-          </a>
+          <LeadTriggerButton label={t.cta} className="button contact-main-button" />
         </div>
         <div className="contact-information">
           <article>

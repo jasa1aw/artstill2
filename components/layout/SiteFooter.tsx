@@ -54,13 +54,15 @@ export function SiteFooter({ locale }: { locale: Locale }) {
 
         <div className="footer-contact-column">
           <p>{t.footer.contactTitle}</p>
-          <a href={PHONE_HREF}>{PHONE_DISPLAY}</a>
-          <a href={WHATSAPP_HREF} target="_blank" rel="noreferrer">
-            WhatsApp
-          </a>
-          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-            Instagram
-          </a>
+          <div>
+            <a href={PHONE_HREF}>{PHONE_DISPLAY}</a>
+            <a href={WHATSAPP_HREF} target="_blank" rel="noreferrer">
+              WhatsApp
+            </a>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+              Instagram
+            </a>
+          </div>
         </div>
 
         <div className="footer-language-column">

@@ -1,3 +1,4 @@
+import { LeadModalProvider } from "@/components/lead/LeadModalProvider";
 import { locales, htmlLang, type Locale } from "@/lib/i18n";
 import "../globals.css";
 
@@ -30,7 +31,15 @@ export default async function LocaleLayout({
 
   return (
     <html lang={htmlLang[locale as Locale]}>
-      <body>{children}</body>
+      <body>
+        {/*
+         * Короткая заявка (имя + телефон) живёт одним экземпляром на всё
+         * приложение: провайдер держит состояние и рендерит <dialog>,
+         * а кнопки открывают её через useLeadModal(). Сам провайдер-
+         * "use client", поэтому layout остаётся серверным компонентом.
+         */}
+        <LeadModalProvider locale={locale as Locale}>{children}</LeadModalProvider>
+      </body>
     </html>
   );
 }

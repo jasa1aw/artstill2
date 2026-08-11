@@ -1,0 +1,352 @@
+/*
+ * Короткая заявка: имя + телефон. Стили лежат рядом с компонентом и
+ * импортируются им напрямую- ровно как components/estimate/brief-form.css.
+ * app/globals.css не трогаем (он перенесён 1:1 из исходного бандла).
+ *
+ * Все классы с префиксом lead-, поэтому порядок подключения не важен.
+ * Токены (--navy, --gold, --premium-bronze…) объявлены в globals.css.
+ * Прямые углы, Georgia в заголовке и uppercase-микролейблы- язык сайта.
+ */
+
+/* Фон не скроллится, пока открыт диалог. Класс вешается на <html>-
+   см. комментарий в LeadModal.tsx. scrollbar-gutter держит место полосы,
+   поэтому контент не съезжает вбок в момент открытия. */
+.lead-scroll-lock {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
+.lead-dialog {
+  --lead-bronze-text: #8a6636;
+
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  margin: auto;
+  max-height: none;
+  max-width: none;
+  overflow: visible;
+  padding: 0;
+  width: min(520px, calc(100vw - 28px));
+
+  /* Появление/исчезновение нативного <dialog>: display и overlay- дискретные
+     свойства, allow-discrete даёт им дожить до конца перехода, поэтому
+     закрытие тоже анимируется, а не «моргает». */
+  opacity: 0;
+  transform: translateY(14px) scale(0.985);
+  transition:
+    opacity 0.26s ease,
+    transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+    overlay 0.26s ease allow-discrete,
+    display 0.26s ease allow-discrete;
+}
+
+.lead-dialog[open] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@starting-style {
+  .lead-dialog[open] {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+}
+
+.lead-dialog::backdrop {
+  background: #081a37;
+  opacity: 0;
+  transition:
+    opacity 0.26s ease,
+    overlay 0.26s ease allow-discrete,
+    display 0.26s ease allow-discrete;
+}
+
+.lead-dialog[open]::backdrop {
+  backdrop-filter: blur(2px);
+  opacity: 0.66;
+}
+
+@starting-style {
+  .lead-dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+/* ---------- Панель ---------- */
+
+.lead-panel {
+  background: var(--surface);
+  border-top: 3px solid var(--gold);
+  box-shadow: 0 40px 90px #081a3745;
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  padding: 34px 36px 30px;
+  position: relative;
+  text-align: left;
+}
+
+.lead-close {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  display: inline-flex;
+  height: 44px;
+  justify-content: center;
+  /* Кнопка визуально прижата к углу, но зона нажатия- 44×44. */
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  transition: color 0.18s;
+  width: 44px;
+}
+
+.lead-close:hover {
+  color: var(--navy);
+}
+
+.lead-close:focus-visible {
+  outline: 2px solid var(--premium-bronze);
+  outline-offset: 2px;
+}
+
+.lead-close svg {
+  height: 15px;
+  width: 15px;
+}
+
+.lead-eyebrow {
+  color: var(--lead-bronze-text);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  margin: 0;
+  padding-right: 40px;
+  text-transform: uppercase;
+}
+
+.lead-title {
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(23px, 4.4vw, 29px);
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 12px 0 0;
+  padding-right: 40px;
+}
+
+.lead-lead {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 12px 0 0;
+  max-width: 46ch;
+}
+
+/* ---------- Поля ---------- */
+
+.lead-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 26px;
+}
+
+.lead-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+
+.lead-label {
+  align-items: baseline;
+  color: var(--navy);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 10px;
+  font-weight: 700;
+  gap: 8px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.lead-label-required {
+  color: var(--lead-bronze-text);
+}
+
+.lead-input {
+  background: var(--white);
+  border: 1px solid #102c5c33;
+  border-radius: 0;
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+  min-height: 56px;
+  outline: none;
+  padding: 14px 16px;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  width: 100%;
+}
+
+.lead-input::placeholder {
+  color: #1720336b;
+}
+
+.lead-input:hover {
+  border-color: #102c5c59;
+}
+
+.lead-input:focus-visible {
+  border-color: var(--premium-bronze);
+  box-shadow: 0 0 0 3px #b08a5730;
+}
+
+.lead-field.has-error .lead-input {
+  border-color: #9c3131;
+}
+
+.lead-field.has-error .lead-input:focus-visible {
+  box-shadow: 0 0 0 3px #9c31311f;
+}
+
+.lead-error {
+  align-items: flex-start;
+  color: #8f2727;
+  display: flex;
+  font-size: 12px;
+  gap: 8px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.lead-error svg {
+  flex: none;
+  height: 14px;
+  margin-top: 1px;
+  width: 14px;
+}
+
+/* ---------- Отправка ---------- */
+
+.lead-submit {
+  align-items: center;
+  background: var(--premium-bronze);
+  border: 1px solid var(--premium-bronze);
+  border-radius: 0;
+  box-shadow: 0 14px 34px #402f1a2e;
+  color: var(--white);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  gap: 12px;
+  justify-content: center;
+  letter-spacing: 1px;
+  min-height: 56px;
+  padding: 0 24px;
+  text-transform: uppercase;
+  transition: background-color 0.18s, border-color 0.18s, transform 0.18s;
+  width: 100%;
+}
+
+.lead-submit:hover {
+  background: var(--premium-bronze-hover);
+  border-color: var(--premium-bronze-hover);
+  transform: translateY(-2px);
+}
+
+.lead-submit:focus-visible {
+  outline: 2px solid var(--navy-dark);
+  outline-offset: 3px;
+}
+
+.lead-submit-icon {
+  align-items: center;
+  border: 1px solid #ffffff80;
+  border-radius: 50%;
+  display: inline-flex;
+  flex: none;
+  height: 28px;
+  justify-content: center;
+  width: 28px;
+}
+
+.lead-submit-icon svg {
+  height: 15px;
+  width: 15px;
+}
+
+.lead-note {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Всплывающее окно заблокировано браузером- отдаём ссылку руками. */
+.lead-fallback {
+  background: #9c313114;
+  border-left: 3px solid #9c3131;
+  color: #772020;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 12px 14px;
+}
+
+.lead-fallback a {
+  color: inherit;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 520px) {
+  .lead-panel {
+    padding: 28px 20px 24px;
+  }
+
+  .lead-close {
+    right: 6px;
+    top: 6px;
+  }
+
+  /* 16px- иначе iOS зумит страницу при фокусе в поле. */
+  .lead-input {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lead-dialog,
+  .lead-dialog::backdrop {
+    transition-duration: 0.01ms;
+  }
+
+  .lead-dialog {
+    transform: none;
+  }
+
+  @starting-style {
+    .lead-dialog[open] {
+      transform: none;
+    }
+  }
+
+  .lead-submit,
+  .lead-input,
+  .lead-close {
+    transition-duration: 0.01ms;
+  }
+
+  .lead-submit:hover {
+    transform: none;
+  }
+}

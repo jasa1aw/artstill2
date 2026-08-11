@@ -4,6 +4,7 @@ import type { Locale } from "@/lib/i18n";
 import { locales, localeLabels } from "@/lib/i18n";
 import { layoutDictionary } from "@/lib/dictionaries/layout";
 import { BRAND_NAME, BRAND_TAGLINE } from "@/lib/site";
+import { InternalMobileMenu } from "./InternalMobileMenu";
 
 type Props = {
   locale: Locale;
@@ -77,29 +78,11 @@ export function InternalHeader({ locale, path }: Props) {
           ))}
         </div>
 
-        <details className="internal-mobile-menu">
-          <summary aria-label={t.menuAria}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </summary>
-          <nav>
-            <Link href={t.internalHeader.home.href}>
-              {t.internalHeader.home.label}
-            </Link>
-            {t.internalHeader.nav.map((item) => (
-              <Link key={item.key} href={item.href}>
-                {item.label}
-              </Link>
-            ))}
-            <Link href={t.internalHeader.estimate.href}>
-              {t.internalHeader.estimate.label}
-            </Link>
-            <a href={t.internalHeader.mobileContacts.href}>
-              {t.internalHeader.mobileContacts.label}
-            </a>
-          </nav>
-        </details>
+        <InternalMobileMenu
+          t={t.internalHeader}
+          menuAria={t.menuAria}
+          section={section}
+        />
       </div>
     </header>
   );
